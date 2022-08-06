@@ -40,3 +40,8 @@ hs_err_pid*
 .idea/modules.xml
 .idea/vcs.xml
 CodingInterviewGuide.iml
+
+# vscode
+.project
+.classpath
+.settings/
