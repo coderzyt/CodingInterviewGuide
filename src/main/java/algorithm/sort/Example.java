@@ -1,4 +1,4 @@
-package algorithm;
+package algorithm.sort;
 
 /**
  * @author coderclay
@@ -8,7 +8,7 @@ public class Example {
 
     public static void sort(Comparable[] arr) {}
 
-    private static boolean less(Comparable v, Comparable w) {
+    public static boolean less(Comparable v, Comparable w) {
         return v.compareTo(w) < 0;
     }
 
