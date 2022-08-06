@@ -1,4 +1,6 @@
-package algorithm.sort;
+package algorithm.sort.insertion;
+
+import algorithm.sort.Example;
 
 /**
  * @author coderclay
