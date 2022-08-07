@@ -2,27 +2,20 @@ package algorithm.sort.merge;
 
 import algorithm.sort.Example;
 
-public class Merge {
-
+public class MergeBU {
     private static Comparable[] aux;
 
     public static void sort(Comparable[] arr) {
         int len = arr.length;
         aux = new Comparable[len];
-        sort(arr, 0, len - 1);
-    }
-
-    private static void sort(Comparable[] arr, int lo, int hi) {
-        if (hi <= lo) {
-            return;
+        for (int sz = 1; sz < len; sz = sz + sz) {
+            for (int lo = 0; lo < len - sz; lo += sz + sz) {
+                merge(arr, lo, lo + sz - 1, Math.min(lo + sz + sz - 1, len - 1));
+            }
         }
-        int mid = lo + (hi - lo) / 2;
-        sort(arr, lo, mid);
-        sort(arr, mid + 1, hi);
-        merge(arr, lo, mid, hi);
     }
 
-    public static void merge(Comparable[] arr, int lo, int mid, int hi) {
+    private static void merge(Comparable[] arr, int lo, int mid, int hi) {
         int i = lo, j = mid + 1;
         for (int k = lo; k <= hi; k++) {
             aux[k] = arr[k];
@@ -39,10 +32,5 @@ public class Merge {
                 arr[k] = aux[i++];
             }
         }
-    }
-
-    public static void main(String[] args) {
-        Character[] arr = { 'M', 'E', 'R', 'G', 'E', 'S', 'O', 'R', 'T', 'E', 'X', 'A', 'M', 'P', 'L', 'E' };
-        sort(arr);
     }
 }
