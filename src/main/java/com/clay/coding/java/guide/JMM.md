@@ -272,9 +272,9 @@ SourceFile: "SynchronizedDemo.java"
 
 > 在 Java 虚拟机(HotSpot)中，Monitor 是基于 C++实现的，由[ObjectMonitoropen in new window](https://github.com/openjdk-mirror/jdk7u-hotspot/blob/50bdefc3afe944ca74c3093e7448d6b889cd20d1/src/share/vm/runtime/objectMonitor.cpp)实现的。每个对象中都内置了一个 `ObjectMonitor`对象。
 >
-> 另外，`wait/notify`等方法也依赖于`monitor`对象，这就是为什么只有在同步的块或者方法中才能调用`wait/notify`等方法，否则会抛出`java.lang.IllegalMonitorStateException`的异常的原因。
+> 另外，`wait/notify`等方法也依赖于 `monitor`对象，这就是为什么只有在同步的块或者方法中才能调用 `wait/notify`等方法，否则会抛出 `java.lang.IllegalMonitorStateException`的异常的原因。
 
-在执行`monitorenter`时，会尝试获取对象的锁，如果锁的计数器为 0 则表示锁可以被获取，获取后将锁计数器设为 1 也就是加 1。
+在执行 `monitorenter`时，会尝试获取对象的锁，如果锁的计数器为 0 则表示锁可以被获取，获取后将锁计数器设为 1 也就是加 1。
 
 ![执行 monitorenter 获取锁](http://javaguide.cn/assets/synchronized-get-lock-code-block.eb4a133a.jpg)
 
@@ -329,8 +329,6 @@ JDK1.6 对锁的实现引入了大量的优化，如偏向锁、轻量级锁、�
    （32位JVM -> MarkWord是32位，64位JVM -> MarkWord是64位）
 2. 类型指针：虚拟机通过这个指针确定该对象是哪个类的实例
 3. 对象头的长度
-
-
    | 长度      | 内容                   | 说明                             |
    | --------- | ---------------------- | -------------------------------- |
    | 32/64 bit | MarkWord               | 存储对象的hashCode或者锁信息等   |
@@ -356,14 +354,12 @@ JDK1.6 对锁的实现引入了大量的优化，如偏向锁、轻量级锁、�
 
 1. 无锁状态
 
-
    | 25bit          | 4bit         | 1bit（是否是偏向锁） | 2bit（锁标志位） |
    | -------------- | ------------ | -------------------- | ---------------- |
    | 对象的hashCode | 对象分代年龄 | 0                    | 01               |
 
    这里的hashCode是Object#hashCode 或者 System#identityHashCode计算出来的值，不是用户覆盖产生的hashCode。
 2. 偏向锁状态
-
 
    | 23bit  | 2bit  | 4bit         | 1bit | 2bit |
    | ------ | ----- | ------------ | ---- | ---- |
@@ -378,14 +374,12 @@ JDK1.6 对锁的实现引入了大量的优化，如偏向锁、轻量级锁、�
    IdentityHashCode是未被覆写的java.lang.Object.hashCode()或者java.lang.System.IdentityHashCode(Obejct)所返回的值。
 3. 轻量级锁状态
 
-
    | 30bit                  | 2bit |
    | ---------------------- | ---- |
    | 指向线程栈帧记录的指针 | 00   |
 
    这里指向栈帧中的Lock Record记录，里面当然可以记录对象的IdentityHashCode。
 4. 重量级锁状态
-
 
    | 30bit              | 2bit |
    | ------------------ | ---- |
@@ -457,11 +451,9 @@ JDK1.6 对锁的实现引入了大量的优化，如偏向锁、轻量级锁、�
 
 两者时互补的存在，不是对立的存在
 
-* `volatile` 关键字是线程同步的轻量级实现，所以 `volatile`性能肯定比`synchronized`关键字要好 。但是 `volatile` 关键字只能用于变量而 `synchronized` 关键字可以修饰方法以及代码块 。
+* `volatile` 关键字是线程同步的轻量级实现，所以 `volatile`性能肯定比 `synchronized`关键字要好 。但是 `volatile` 关键字只能用于变量而 `synchronized` 关键字可以修饰方法以及代码块 。
 * `volatile` 关键字能保证数据的可见性，但不能保证数据的原子性。`synchronized` 关键字两者都能保证。
 * `volatile`关键字主要用于解决变量在多个线程之间的可见性，而 `synchronized` 关键字解决的是多个线程之间访问资源的同步性。
-
-### 
 
 ### synchronized 和 ReentrantLock 的区别
 
@@ -471,19 +463,19 @@ JDK1.6 对锁的实现引入了大量的优化，如偏向锁、轻量级锁、�
 
 #### ReentrantLock 比 synchronized 增加了一些高级功能
 
-相比`synchronized`，`ReentrantLock`增加了一些高级功能。主要来说主要有三点：
+相比 `synchronized`，`ReentrantLock`增加了一些高级功能。主要来说主要有三点：
 
 * **等待可中断** : `ReentrantLock`提供了一种能够中断等待锁的线程的机制，通过 `lock.lockInterruptibly()` 来实现这个机制。也就是说正在等待的线程可以选择放弃等待，改为处理其他事情。
-* **可实现公平锁** : `ReentrantLock`可以指定是公平锁还是非公平锁。而`synchronized`只能是非公平锁。所谓的公平锁就是先等待的线程先获得锁。`ReentrantLock`默认情况是非公平的，可以通过 `ReentrantLock`类的`ReentrantLock(boolean fair)`构造方法来制定是否是公平的。
-* **可实现选择性通知（锁可以绑定多个条件）** : `synchronized`关键字与`wait()`和`notify()`/`notifyAll()`方法相结合可以实现等待/通知机制。`ReentrantLock`类当然也可以实现，但是需要借助于`Condition`接口与`newCondition()`方法。
+* **可实现公平锁** : `ReentrantLock`可以指定是公平锁还是非公平锁。而 `synchronized`只能是非公平锁。所谓的公平锁就是先等待的线程先获得锁。`ReentrantLock`默认情况是非公平的，可以通过 `ReentrantLock`类的 `ReentrantLock(boolean fair)`构造方法来制定是否是公平的。
+* **可实现选择性通知（锁可以绑定多个条件）** : `synchronized`关键字与 `wait()`和 `notify()`/`notifyAll()`方法相结合可以实现等待/通知机制。`ReentrantLock`类当然也可以实现，但是需要借助于 `Condition`接口与 `newCondition()`方法。
 
 ### ThreadLocal
 
 #### ThreadLocal有什么用
 
-**`ThreadLocal`类主要解决的就是让每个线程绑定自己的值，可以将`ThreadLocal`类形象的比喻成存放数据的盒子，盒子中可以存储每个线程的私有数据。**
+**`ThreadLocal`类主要解决的就是让每个线程绑定自己的值，可以将 `ThreadLocal`类形象的比喻成存放数据的盒子，盒子中可以存储每个线程的私有数据。**
 
-如果你创建了一个`ThreadLocal`变量，那么访问这个变量的每个线程都会有这个变量的本地副本，这也是`ThreadLocal`变量名的由来。他们可以使用 `get（）` 和 `set（）` 方法来获取默认值或将其值更改为当前线程所存的副本的值，从而避免了线程安全问题。
+如果你创建了一个 `ThreadLocal`变量，那么访问这个变量的每个线程都会有这个变量的本地副本，这也是 `ThreadLocal`变量名的由来。他们可以使用 `get（）` 和 `set（）` 方法来获取默认值或将其值更改为当前线程所存的副本的值，从而避免了线程安全问题。
 
 #### 如何使用 ThreadLocal？
 
@@ -519,9 +511,9 @@ public class ThreadLocalExample implements Runnable {
 
 #### ThreadLocal 原理了解吗？
 
-**最终的变量是放在了当前线程的 `ThreadLocalMap` 中，并不是存在 `ThreadLocal` 上，`ThreadLocal` 可以理解为只是`ThreadLocalMap`的封装，传递了变量值。** `ThrealLocal` 类中可以通过`Thread.currentThread()`获取到当前线程对象后，直接通过`getMap(Thread t)`可以访问到该线程的`ThreadLocalMap`对象。
+**最终的变量是放在了当前线程的 `ThreadLocalMap` 中，并不是存在 `ThreadLocal` 上，`ThreadLocal` 可以理解为只是 `ThreadLocalMap`的封装，传递了变量值。** `ThrealLocal` 类中可以通过 `Thread.currentThread()`获取到当前线程对象后，直接通过 `getMap(Thread t)`可以访问到该线程的 `ThreadLocalMap`对象。
 
-**每个`Thread`中都具备一个`ThreadLocalMap`，而`ThreadLocalMap`可以存储以`ThreadLocal`为 key ，Object 对象为 value 的键值对。**
+**每个 `Thread`中都具备一个 `ThreadLocalMap`，而 `ThreadLocalMap`可以存储以 `ThreadLocal`为 key ，Object 对象为 value 的键值对。**
 
 ```
 ThreadLocalMap(ThreadLocal<?> firstKey, Object firstValue) {
@@ -529,11 +521,11 @@ ThreadLocalMap(ThreadLocal<?> firstKey, Object firstValue) {
 }
 ```
 
-比如我们在同一个线程中声明了两个 `ThreadLocal` 对象的话， `Thread`内部都是使用仅有的那个`ThreadLocalMap` 存放数据的，`ThreadLocalMap`的 key 就是 `ThreadLocal`对象，value 就是 `ThreadLocal` 对象调用`set`方法设置的值。
+比如我们在同一个线程中声明了两个 `ThreadLocal` 对象的话， `Thread`内部都是使用仅有的那个 `ThreadLocalMap` 存放数据的，`ThreadLocalMap`的 key 就是 `ThreadLocal`对象，value 就是 `ThreadLocal` 对象调用 `set`方法设置的值。
 
 ![threadlocal-data-structure](http://javaguide.cn/assets/threadlocal-data-structure.aa76aca6.jpg)
 
-`ThreadLocalMap`是`ThreadLocal`的静态内部类。
+`ThreadLocalMap`是 `ThreadLocal`的静态内部类。
 
 ![ThreadLocal内部类](http://javaguide.cn/assets/thread-local-inner-class.fc4bb676.png)
 
@@ -541,7 +533,7 @@ ThreadLocalMap(ThreadLocal<?> firstKey, Object firstValue) {
 
 `ThreadLocalMap` 中使用的 key 为 `ThreadLocal` 的弱引用，而 value 是强引用。所以，如果 `ThreadLocal` 没有被外部强引用的情况下，在垃圾回收的时候，key 会被清理掉，而 value 不会被清理掉。
 
-这样一来，`ThreadLocalMap` 中就会出现 key 为 null 的 Entry。假如我们不做任何措施的话，value 永远无法被 GC 回收，这个时候就可能会产生内存泄露。`ThreadLocalMap` 实现中已经考虑了这种情况，在调用 `set()`、`get()`、`remove()` 方法的时候，会清理掉 key 为 null 的记录。使用完 `ThreadLocal`方法后 最好手动调用`remove()`方法。
+这样一来，`ThreadLocalMap` 中就会出现 key 为 null 的 Entry。假如我们不做任何措施的话，value 永远无法被 GC 回收，这个时候就可能会产生内存泄露。`ThreadLocalMap` 实现中已经考虑了这种情况，在调用 `set()`、`get()`、`remove()` 方法的时候，会清理掉 key 为 null 的记录。使用完 `ThreadLocal`方法后 最好手动调用 `remove()`方法。
 
 ```
 static class Entry extends WeakReference<ThreadLocal<?>> {
@@ -614,18 +606,18 @@ protected final boolean compareAndSetState(int expect, int update) {
 
 #### AQS定义两种资源共享方式
 
-* Exclusive（独占）：只有一个线程能执行，如`ReentrantLock`。又可分为公平锁和非公平锁：
+* Exclusive（独占）：只有一个线程能执行，如 `ReentrantLock`。又可分为公平锁和非公平锁：
   * 公平锁：按照线程在队列中的排队顺序，先到者先拿到锁
   * 非公平锁：当线程要获取锁时，无视队列顺序直接去抢锁，谁抢到就是谁的
-* Share（共享）：多个线程可同时执行，如`CountDownLatch`，`Semaphore`，`CyclicBarrier`，`ReadWriteLock`我们都会在后面讲到。
+* Share（共享）：多个线程可同时执行，如 `CountDownLatch`，`Semaphore`，`CyclicBarrier`，`ReadWriteLock`我们都会在后面讲到。
 
-`ReentrantReadWriteLock`可以看作时组合式，因为`ReentrantReadWriteLock`也就是读写锁允许多个线程同时对某一资源进行读。
+`ReentrantReadWriteLock`可以看作时组合式，因为 `ReentrantReadWriteLock`也就是读写锁允许多个线程同时对某一资源进行读。
 
 #### AQS组件总结
 
 * `Semaphore`(信号量）- 允许多个线程同时访问：`synchronized` 和 `ReentrantLock`都是一次只允许一个线程访问某个资源，`Semaphore`（信号量）可以指定多个线程同时访问某个资源。
 * `CountDownLatch`（倒计时器）：`CountDownLatch`是一个同步工具类，用来协调多个线程之间的同步。这个工具通常用来控制线程等待，它可以让某一个线程等待直到倒计时结束，再开始执行。
-* `CylicBarrier`（循环栅栏）：`CylicBarrier`和`CountDownLatch`非常类似，它也可以实现线程间的技术等待，但是它的功能比`CountDownLatch`更加复杂和强大。主要应用场景和`CountDownLatch`类似。它要做的事情是，让一组线程到达一个屏障（也可以叫同步点）时被阻塞，直到最后一个线程到达屏障时，屏障才会开门，所有被屏障拦截的线程才会继续干活。`CylicBarrier`默认的构造方法是`CylicBarrier(int parties)`，其参数表示屏障拦截的线程数量，每个线程调用`await()`方法告诉`CylicBarrier`我已经到达了屏障，然后当前线程被阻塞。
+* `CylicBarrier`（循环栅栏）：`CylicBarrier`和 `CountDownLatch`非常类似，它也可以实现线程间的技术等待，但是它的功能比 `CountDownLatch`更加复杂和强大。主要应用场景和 `CountDownLatch`类似。它要做的事情是，让一组线程到达一个屏障（也可以叫同步点）时被阻塞，直到最后一个线程到达屏障时，屏障才会开门，所有被屏障拦截的线程才会继续干活。`CylicBarrier`默认的构造方法是 `CylicBarrier(int parties)`，其参数表示屏障拦截的线程数量，每个线程调用 `await()`方法告诉 `CylicBarrier`我已经到达了屏障，然后当前线程被阻塞。
 
 ## 线程池
 
@@ -640,8 +632,38 @@ Linux相比与其他操作系统（包括其他类Unix系统）有很多的优�
 * CPU密集型任务（N+1）：这种任务消耗的主要是CPU资源，可以将线程数设置为N（CPU核心数）+1。比CPU核心数多出来的一个线程时为了防止线程偶发的缺页中断，或者其他原因导致的任务暂停而带来的影响。一旦任务暂停，CPU就会处于空闲状态，而在这种情况下多出来的一个线程就可以充分利用CPU的空闲时间。
 * I/O密集型任务（2N）：这种任务应用起来，系统会用大部分的时间来处理I/O交互，而线程在处理I/O的时间段内不会占用CPU来处理，这时就可以将CPU交出给其他线程使用。因此在I/O密集型任务的应用中，我们可以多配置一些线程，具体计算方法是2N。
 
-> 线程数更严谨的计算方法是：`最佳线程数 = N（CPU核心数）+（1+WT（线程等待时间）/ ST（线程计算时间））`线程等待时间所占比例越高，需要越多线程。我们可以通过JDK自带的工具VisualVM来查看`WT/ST`比例。
+> 线程数更严谨的计算方法是：`最佳线程数 = N（CPU核心数）+（1+WT（线程等待时间）/ ST（线程计算时间））`线程等待时间所占比例越高，需要越多线程。我们可以通过JDK自带的工具VisualVM来查看 `WT/ST`比例。
 >
-> CPU密集型任务的`WT/ST`接近或者等于0，因此，线程数可以设置为 `N（CPU核心数）+（1+0）= N`，和我们上面说的是`N（CPU核心数）+ 1`差不多
+> CPU密集型任务的 `WT/ST`接近或者等于0，因此，线程数可以设置为 `N（CPU核心数）+（1+0）= N`，和我们上面说的是 `N（CPU核心数）+ 1`差不多
 >
 > I/O密集型任务下，几乎全是线程等待时间，从理论上来说，你就可以将线程数设置为2N（按道理来说，WT/ST的结果应该比较大，这里选择2N的原因应该是为了避免创建过多线程吧）。
+
+
+
+# Java内存区域详解
+
+JDK1.8 之前
+
+[JVM%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA%E5%9F%9F.5f095134.png](https://javaguide.cn/assets/JVM%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA%E5%9F%9F.5f095134.png)
+
+JDK1.8
+
+[Java%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA%E5%9F%9FJDK1.8.dbbe1f77.png](https://javaguide.cn/assets/Java%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA%E5%9F%9FJDK1.8.dbbe1f77.png)
+
+线程私有的：
+
+* 程序计数器
+* 虚拟机栈
+* 本地方法栈
+
+线程共享的：
+
+* 堆
+* 方法区 -> 元空间
+* 直接内存（非运行时数据区的一部分）
+
+## 程序计数器
+
+程序计数器是一块较小的内存空间，可以看作是当前线程所执行的行号指示器。字节码解释器工作时通过改变这个计数器的值来选取下一条需要执行的字节码指令，分支，循环，跳转，异常处理，线程回复等功能都需要依赖这个计数器来完成。为了线程切换后能恢复到正确的执行位置，每条线程都需要有一个独立的程序计数器，各线程之间计数器互不影响，独立存储，我们称这类内存区域为“线程私有"的内存。
+
+⚠️ 注意 ：程序计数器是唯一一个不会出现** **`OutOfMemoryError` 的内存区域，它的生命周期随着线程的创建而创建，随着线程的结束而死亡。

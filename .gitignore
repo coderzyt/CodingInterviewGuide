@@ -45,3 +45,6 @@ CodingInterviewGuide.iml
 .project
 .classpath
 .settings/
+target/
+.classpath
+.vscode/
