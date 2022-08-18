@@ -471,13 +471,13 @@ public class RBTree<T extends Comparable<T>> {
     }
 
     /**
-     * debug method, it used print the given node and its children nodes,
+     * debug method,it used print the given node and its children nodes,
      * every layer output in one line
      * @param root
      */
     public void printTree(RBTreeNode<T> root) {
-        LinkedList<RBTreeNode<T>> queue = new LinkedList<RBTreeNode<T>>();
-        LinkedList<RBTreeNode<T>> queue2 = new LinkedList<RBTreeNode<T>>();
+        java.util.LinkedList<RBTreeNode<T>> queue = new java.util.LinkedList<RBTreeNode<T>>();
+        java.util.LinkedList<RBTreeNode<T>> queue2 = new java.util.LinkedList<RBTreeNode<T>>();
         if (root == null) {
             return;
         }
@@ -492,7 +492,7 @@ public class RBTree<T extends Comparable<T>> {
                 String pstr = n.getParent() == null ? "" : n.getParent().toString();
                 String cstr = n.isRed() ? "R" : "B";
                 cstr = n.getParent() == null ? cstr : cstr + " ";
-                System.out.println(n + "(" + (cstr) + pstr + (pos) + ")" + "\t");
+                System.out.print(n + "(" + (cstr) + pstr + (pos) + ")" + "\t");
                 if (n.getLeft() != null) {
                     (firstQueue ? queue2 : queue).add(n.getLeft());
                 }
@@ -521,7 +521,7 @@ public class RBTree<T extends Comparable<T>> {
         bst.addNode("g");
         bst.addNode("h");
 
-        bst.addNode("c");
+        bst.remove("c");
 
         bst.printTree(bst.getRoot());
     }
