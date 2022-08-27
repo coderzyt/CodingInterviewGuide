@@ -11,6 +11,8 @@ public class TreeNode {
 
     TreeNode right;
 
+    TreeNode next;
+
     TreeNode() {
 
     }
