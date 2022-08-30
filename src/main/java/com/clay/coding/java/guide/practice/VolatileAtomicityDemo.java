@@ -1,4 +1,4 @@
-package com.clay.coding.java.guide;
+package com.clay.coding.java.guide.practice;
 
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;

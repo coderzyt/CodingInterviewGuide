@@ -1,4 +1,4 @@
-package com.clay.coding.java.guide;
+package com.clay.coding.java.guide.practice;
 
 import java.text.SimpleDateFormat;
 import java.util.Random;
