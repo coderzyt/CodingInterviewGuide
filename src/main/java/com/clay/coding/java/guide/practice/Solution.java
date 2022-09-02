@@ -169,4 +169,105 @@ public class Solution {
         return p2;
     }
 
+    public int[] twoSum(int[] numbers, int target) {
+        int len = numbers.length;
+        int left = 0, right = len - 1;
+        while (left != right) {
+            int sum = numbers[left] + numbers[right];
+            if (sum == target) {
+                return new int[]{left + 1, right + 1};
+            } else if (sum > target) {
+                right--;
+            } else {
+                left++;
+            }
+        }
+        return new int[]{};
+    }
+
+    public int removeDuplicates(int[] nums) {
+        int slow = 0, fast = 0;
+        while (fast < nums.length) {
+            if (nums[slow] != nums[fast]) {
+                slow++;
+                nums[slow] = nums[fast];
+            }
+            fast++;
+        }
+        return slow + 1;
+    }
+
+    public int removeElement(int[] nums, int val) {
+        int len = nums.length;
+        int slow = 0, fast = 0;
+        while (fast < len) {
+            if (nums[fast] != val) {
+                nums[slow] = nums[fast];
+                slow++;
+            }
+            fast++;
+        }
+        return slow;
+    }
+
+    public void moveZeroes(int[] nums) {
+        int len = nums.length;
+        int slow = 0, fast = 0;
+        while (fast < len) {
+            if (nums[fast] != 0) {
+                int temp = nums[slow];
+                nums[slow] = nums[fast];
+                nums[fast] = temp;
+                slow++;
+            }
+            fast++;
+        }
+    }
+
+    public void reverseString(char[] s) {
+        int len = s.length;
+        int left = 0, right = len - 1;
+        while (left < right) {
+            char temp = s[left];
+            s[left] = s[right];
+            s[right] = temp;
+            left++;
+            right--;
+        }
+    }
+
+    public String longestPalindrome(String s) {
+        String res = "";
+        for (int i = 0; i < s.length(); i++) {
+            String s1 = palindrome(s, i, i);
+            String s2 = palindrome(s, i, i + 1);
+            res = res.length() > s1.length() ? res : s1;
+            res = res.length() > s2.length() ? res : s2;
+        }
+        return res;
+    }
+
+    public String palindrome(String s, int l, int r) {
+        while (l >= 0 && r < s.length() && s.charAt(l) == s.charAt(r)) {
+            l--;
+            r++;
+        }
+        return s.substring(l + 1, r);
+    }
+
+    public ListNode deleteDuplicates(ListNode head) {
+        if (head == null) {
+            return null;
+        }
+        ListNode slow = head, fast = head;
+        while (fast != null) {
+            if (slow.val != fast.val) {
+                slow.next = fast;
+                slow = slow.next;
+            }
+            fast = fast.next;
+        }
+        slow.next = null;
+        return head;
+    }
 }
