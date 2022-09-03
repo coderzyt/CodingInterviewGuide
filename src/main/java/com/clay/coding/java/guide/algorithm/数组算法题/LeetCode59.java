@@ -1,9 +1,13 @@
 package com.clay.coding.java.guide.algorithm.数组算法题;
 
+/**
+ * https://leetcode.cn/problems/spiral-matrix-ii/
+ */
 public class LeetCode59 {
     public int[][] generateMatrix(int n) {
         int[][] res = new int[n][n];
-        int upper_bound = 0, lower_bound = n - 1, left_bound = 0, right_bound = n - 1;
+        int upper_bound = 0, lower_bound = n - 1;
+        int left_bound = 0, right_bound = n - 1;
         int count = 1;
         while (count <= n * n) {
             if (upper_bound <= lower_bound) {
@@ -14,7 +18,6 @@ public class LeetCode59 {
             }
             if (left_bound <= right_bound) {
                 for (int i = upper_bound; i <= lower_bound; i++) {
-                    count++;
                     res[i][right_bound] = count++;
                 }
                 right_bound--;
@@ -39,6 +42,5 @@ public class LeetCode59 {
     public static void main(String[] args) {
         LeetCode59 leetCode59 = new LeetCode59();
         System.out.println(leetCode59.generateMatrix(2));
-        
     }
 }
