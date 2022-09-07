@@ -2,6 +2,7 @@ package com.clay.coding.java.guide.algorithm.数组算法题;
 
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Random;
 
 /**
  * @author coderclay
@@ -17,7 +18,10 @@ public class LeetCode380 {
 
         HashMap<Integer, Integer> valToIndex;
 
+        Random random;
+
         public RandomizedSet() {
+            random = new Random();
             nums = new LinkedList<>();
             valToIndex = new HashMap<>();
         }
@@ -48,7 +52,7 @@ public class LeetCode380 {
         }
 
         public int getRandom() {
-            return nums.get((int) (Math.random() * nums.size()));
+            return nums.get(random.nextInt(nums.size()));
         }
     }
 }
