@@ -10,6 +10,8 @@ public class Node {
 
     public List<Node> children;
 
+    public Node parent;
+
     public Node() {
 
     }
