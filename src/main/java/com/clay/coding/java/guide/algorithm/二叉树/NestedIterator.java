@@ -4,6 +4,9 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * @author coderclay
+ */
 public class NestedIterator implements Iterator<Integer> {
 
     private LinkedList<NestedInteger> list;

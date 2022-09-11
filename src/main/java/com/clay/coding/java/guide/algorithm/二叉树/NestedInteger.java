@@ -2,6 +2,9 @@ package com.clay.coding.java.guide.algorithm.二叉树;
 
 import java.util.List;
 
+/**
+ * @author coderclay
+ */
 public class NestedInteger {
 
     private Integer val;
