@@ -30,7 +30,7 @@ public class LeetCode46 {
                 continue;
             }
             // 做选择
-            track.add(nums[i]);
+            track.addLast(nums[i]);
             used[i] = true;
             // 进入下一层决策树
             backtrack(nums, track, used);

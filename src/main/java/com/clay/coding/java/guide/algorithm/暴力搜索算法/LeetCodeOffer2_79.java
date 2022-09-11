@@ -5,9 +5,9 @@ import java.util.List;
 
 /**
  * @author coderclay
- * <a href="https://leetcode.cn/problems/subsets/">...</a>
+ * https://leetcode.cn/problems/TVdhkn/
  */
-public class LeetCode78 {
+public class LeetCodeOffer2_79 {
 
     List<List<Integer>> res = new LinkedList<>();
 
@@ -19,18 +19,11 @@ public class LeetCode78 {
     }
 
     void backtrack(int[] nums, int start) {
-        // 前序位置,每个节点的值都是一个子集
         res.add(new LinkedList<>(track));
         for (int i = start; i < nums.length; i++) {
             track.addLast(nums[i]);
-            backtrack(nums, i + 1);
+            backtrack(nums, start + 1);
             track.removeLast();
         }
-    }
-
-    public static void main(String[] args) {
-        LeetCode78 leetCode78 = new LeetCode78();
-        int[] nums = new int[]{1, 2, 3};
-        leetCode78.subsets(nums);
     }
 }
