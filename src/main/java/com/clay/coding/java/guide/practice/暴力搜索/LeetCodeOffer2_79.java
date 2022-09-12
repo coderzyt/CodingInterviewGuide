@@ -1,11 +1,10 @@
-package com.clay.coding.java.guide.algorithm.暴力搜索算法;
+package com.clay.coding.java.guide.practice.暴力搜索;
 
 import java.util.LinkedList;
 import java.util.List;
 
 /**
  * @author coderclay
- * https://leetcode.cn/problems/TVdhkn/
  */
 public class LeetCodeOffer2_79 {
 

@@ -6,9 +6,9 @@ import java.util.List;
 
 /**
  * @author coderclay
- * https://leetcode.cn/problems/combination-sum-ii/
+ * <a href="https://leetcode.cn/problems/4sjJUc/">...</a>
  */
-public class LeetCode40 {
+public class LeetCodeOffer2_82 {
 
     List<List<Integer>> res = new LinkedList<>();
 
@@ -21,11 +21,11 @@ public class LeetCode40 {
             return res;
         }
         Arrays.sort(candidates);
-        backtrack(candidates, 0, target);
+        backtrack(candidates, target, 0);
         return res;
     }
 
-    void backtrack(int[] nums, int start, int target) {
+    void backtrack(int[] nums, int target, int start) {
         if (trackSum == target) {
             res.add(new LinkedList<>(track));
             return;
@@ -39,7 +39,7 @@ public class LeetCode40 {
             }
             track.addLast(nums[i]);
             trackSum += nums[i];
-            backtrack(nums, i + 1, target);
+            backtrack(nums, target, i + 1);
             trackSum -= nums[i];
             track.removeLast();
         }
