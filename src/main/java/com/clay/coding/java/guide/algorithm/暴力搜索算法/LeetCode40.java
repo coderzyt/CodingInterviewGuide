@@ -6,7 +6,7 @@ import java.util.List;
 
 /**
  * @author coderclay
- * https://leetcode.cn/problems/combination-sum-ii/
+ * <a href="https://leetcode.cn/problems/combination-sum-ii/">...</a>
  */
 public class LeetCode40 {
 
