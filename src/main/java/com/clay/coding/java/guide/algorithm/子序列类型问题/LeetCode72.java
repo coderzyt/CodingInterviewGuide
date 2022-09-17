@@ -21,9 +21,10 @@ public class LeetCode72 {
         if (word1.charAt(i) == word2.charAt(j)) {
             return dp(word1, i - 1, word2, j - 1);
         }
-        return min(dp(word1, i, word2, j - 1) + 1,
-                dp(word1, i - 1, word2, j) + 1,
-                dp(word1, i - 1, word2, j - 1) + 1);
+        int insertion = dp(word1, i, word2, j - 1) + 1;
+        int delete = dp(word1, i - 1, word2, j) + 1;
+        int replace = dp(word1, i - 1, word2, j - 1) + 1;
+        return min(insertion, delete, replace);
     }
 
     int min(int a, int b, int c) {
@@ -32,6 +33,6 @@ public class LeetCode72 {
 
     public static void main(String[] args) {
         LeetCode72 leetCode72 = new LeetCode72();
-        System.out.println(leetCode72.minDistance("horse", "ros"));
+        System.out.println(leetCode72.minDistance("s", "e"));
     }
 }
