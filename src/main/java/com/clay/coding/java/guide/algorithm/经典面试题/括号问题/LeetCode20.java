@@ -1,10 +1,10 @@
-package com.clay.coding.java.guide.algorithm.括号问题;
+package com.clay.coding.java.guide.algorithm.经典面试题.括号问题;
 
 import java.util.Stack;
 
 /**
  * @author coderclay
- * https://leetcode.cn/problems/valid-parentheses/
+ * <a href="https://leetcode.cn/problems/valid-parentheses/">...</a>
  */
 public class LeetCode20 {
     public boolean isValid(String s) {

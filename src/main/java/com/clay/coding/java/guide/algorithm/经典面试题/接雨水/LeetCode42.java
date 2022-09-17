@@ -1,4 +1,4 @@
-package com.clay.coding.java.guide.algorithm.接雨水;
+package com.clay.coding.java.guide.algorithm.经典面试题.接雨水;
 
 /**
  * @author coderclay
