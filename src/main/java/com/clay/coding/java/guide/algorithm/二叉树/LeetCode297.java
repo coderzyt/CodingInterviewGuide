@@ -4,11 +4,10 @@ import java.util.LinkedList;
 
 /**
  * @author coderclay
+ * <a href="https://leetcode.cn/problems/serialize-and-deserialize-binary-tree/">...</a>
  */
 public class LeetCode297 {
-    /**
-     * https://leetcode.cn/problems/serialize-and-deserialize-binary-tree/
-     */
+
     String SEP = ", ";
     String NULL = "null";
     StringBuffer stringBuffer = new StringBuffer();
